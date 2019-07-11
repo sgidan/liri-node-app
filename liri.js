@@ -94,8 +94,6 @@ function movieThis() {
                 console.log("Country where the movie was produced: Belgium, Germany, Canada, France, USA, UK")
                 return;
             }
-            // console.log(response, null, 2)
-            // for (i = 0; i < response.data.length; i++) {
             console.log("the movie title is: " + response.data.Title)
             console.log("The movie's rating is: " + response.data.imdbRating);
             console.log("Year the movie came out is: " + response.data.Released);
@@ -104,29 +102,11 @@ function movieThis() {
             console.log("Language of the movie: " + response.data.Language);
             console.log("Plot of the movie: " + response.data.Plot);
             console.log("Actors in the movie: " + response.data.Actors);
-
         }
     )
 }
 
+function doWhatItSays() {
 
-            // })
-    //     .catch(function (error) {
-    //         if (error.response) {
-    //             console.log("---Data---");
-    //             console.log(error.response.data);
-    //             console.log("---Status---");
-    //             console.log(error.response.status);
-    //             console.log("---Status---");
-    //             console.log(error.response.headers);
-    //         } else if (error.request) {
-
-    //             console.log(error.request);
-    //         } else {
-
-    //             console.log("Error", error.message);
-    //         }
-    //         console.log(error.config);
-    //     })
-    // )
-
+    
+}
