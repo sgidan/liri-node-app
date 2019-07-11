@@ -4,29 +4,32 @@ var axios = require("axios");
 var keys = require("./keys.js");
 var Spotify = require("node-spotify-api");
 var spotify = new Spotify(keys.spotify);
+var parameter = process.argv.slice(3).join("+");
 
 // console.log(keys)
 
 var action = process.argv[2]
 //var search = process.argv[3]
-
-switch (action) {
-    case "concert-this":
-        concertThis();
-        break;
-    case "spotify-this-song":
-        spotifyThis()
-        break;
-    case "movie-this":
-        movieThis();
-        break;
-    case "do-what-it-says":
-        doWhatItSays()
-        break;
-
+function Liri() {
+    switch (action) {
+        case "concert-this":
+            concertThis(parameter);
+            break;
+        case "spotify-this-song":
+            spotifyThis(parameter)
+            break;
+        case "movie-this":
+            movieThis(parameter);
+            break;
+        case "do-what-it-says":
+            doWhatItSays()
+            break;
+    }
 }
-function concertThis() {
-    var artist = process.argv.slice(3).join("+");
+Liri();
+
+function concertThis(artist) {
+
     var queryUrl = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=" + keys.spotify.id;
     console.log(queryUrl);
 
@@ -50,9 +53,7 @@ function concertThis() {
 
 }
 
-function spotifyThis() {
-
-    var song = process.argv.slice(3).join("+");
+function spotifyThis(song) {
 
     if (song === "") {
         console.log("No song found! Here's a classic:")
@@ -80,8 +81,8 @@ function spotifyThis() {
     )
 }
 
-function movieThis() {
-    var movie = process.argv.slice(3).join("+");;
+function movieThis(movie) {
+
     var queryUrl = "http://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy"
     // console.log(queryUrl)
     axios.get(queryUrl).then(
@@ -107,6 +108,19 @@ function movieThis() {
 }
 
 function doWhatItSays() {
+    var fs = require("fs");
 
-    
+    fs.readFile("random.txt", "utf8", function (error, data) {
+        if (error) {
+            return console.log(error);
+        }
+
+        var dataArr = data.split(",");
+        action = dataArr[0]
+        parameter = dataArr[1]
+        console.log(dataArr)
+
+        Liri();
+    });
+
 }
