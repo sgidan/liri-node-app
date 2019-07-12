@@ -4,11 +4,14 @@ var axios = require("axios");
 var keys = require("./keys.js");
 var Spotify = require("node-spotify-api");
 var spotify = new Spotify(keys.spotify);
-var parameter = process.argv.slice(3).join("+");
+var fs = require("fs");
+
 
 // console.log(keys)
 
-var action = process.argv[2]
+var action = process.argv[2];
+var parameter = process.argv.slice(3).join("+");
+
 //var search = process.argv[3]
 function Liri() {
     switch (action) {
@@ -108,19 +111,20 @@ function movieThis(movie) {
 }
 
 function doWhatItSays() {
-    var fs = require("fs");
 
     fs.readFile("random.txt", "utf8", function (error, data) {
         if (error) {
             return console.log(error);
         }
+        console.log(data) // data is initially a string
+        var dataArr = data.split(","); // puts the data in a var and split makes it into an array so that it can read the seperate inputs
+        console.log(dataArr) // pulls all the info and formats it. 
 
-        var dataArr = data.split(",");
-        action = dataArr[0]
-        parameter = dataArr[1]
-        console.log(dataArr)
+        action = dataArr[0] // makes the action function & calls  dataArr w/index 0 which is similar to using process.argv index 2 which is the input(movie-this); 
+        parameter = dataArr[1] // makes the parameter into the data array (process.argv index 1) which is the parameter of the input.
 
         Liri();
+
     });
 
 }
